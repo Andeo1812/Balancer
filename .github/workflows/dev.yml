@@ -1,0 +1,29 @@
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  linter:
+    name: Linter
+    runs-on: ubuntu-20.04
+    container:
+      image: lonkidely/golang_web_light
+    steps:
+      - uses: actions/checkout@v2
+      - run: make run-linter
+
+  build:
+    needs: Linter
+    name: Build
+    runs-on: ubuntu-20.04
+    container:
+      image: lonkidely/golang_web_light
+    steps:
+      - uses: actions/checkout@v2
+      - run: make build
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          path: bin/*.bin
