@@ -21,7 +21,7 @@ func (h *EchoHandler) Configure(r *mux.Router) {
 }
 
 func (h *EchoHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	response, err := bind(r)
+	response, err := bindEcho(r)
 	if err != nil {
 		DefaultHandlerHTTPError(r.Context(), w, err)
 		return
@@ -32,7 +32,7 @@ func (h *EchoHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	Response(r.Context(), w, http.StatusOK, response)
 }
 
-func bind(r *http.Request) (EchoResponse, error) {
+func bindEcho(r *http.Request) (EchoResponse, error) {
 	res := EchoResponse{}
 
 	res.Body = r.FormValue("body")
@@ -41,4 +41,19 @@ func bind(r *http.Request) (EchoResponse, error) {
 	}
 
 	return res, nil
+}
+
+type HealthHandler struct{}
+
+// NewHealthHandler is constructor for EchoHandler Ping API.
+func NewHealthHandler() *HealthHandler {
+	return &HealthHandler{}
+}
+
+func (h *HealthHandler) Configure(r *mux.Router) {
+	r.HandleFunc("/health", h.ServeHTTP)
+}
+
+func (h *HealthHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	NoBody(w, http.StatusOK)
 }

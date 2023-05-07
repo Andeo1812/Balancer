@@ -75,6 +75,9 @@ func main() {
 	echo := internal.NewEchoHandler()
 	echo.Configure(router)
 
+	health := internal.NewHealthHandler()
+	health.Configure(router)
+
 	// Set middleware
 	router.Use(
 		mw.SetDefaultMetrics,

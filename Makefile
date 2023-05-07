@@ -62,6 +62,7 @@ run-monitoring:
 
 stop-monitoring:
 	docker-compose kill prometheus-b grafana-b
+	docker-compose down prometheus-b grafana-b
 
 
 TARGET_HOST=localhost
@@ -77,3 +78,7 @@ run-nginx:
 
 logs-nginx:
 	docker-compose logs nginx
+
+stop-nginx:
+	docker-compose kill nginx
+	docker-compose down nginx
