@@ -25,9 +25,7 @@ generate:
 clear:
 	sudo rm -rf fullchain.pem privkey.pem bin/*
 
-
-# Env export POD_UUID=8 && export PORT_APP=8080 && export PORT_METRICS_APP=9000
-# INFRA
+# INFRA APP
 build-app:
 	docker-compose build app
 
@@ -53,3 +51,10 @@ get-logs-app:
 stop:
 	docker-compose kill
 	docker-compose down
+
+# INFRA MONITORING
+run-monitoring:
+	docker-compose up -d --remove-orphans prometheus-b grafana-b
+
+stop-monitoring:
+	docker-compose kill prometheus-b grafana-b

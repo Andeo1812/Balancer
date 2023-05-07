@@ -6,3 +6,37 @@ services:
     build:
       dockerfile: ./infra/builder.Dockerfile
     command: sh -c "./main.bin"
+
+  prometheus-b:
+    container_name: "prometheus-b"
+    image: prom/prometheus:latest
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    environment:
+      TZ: "Europe/Moscow"
+    volumes:
+      - ./monitoring/prometheus:/etc/prometheus
+    ports:
+      - "9090:9090"
+
+  grafana-b:
+    container_name: "grafana-b"
+    image: grafana/grafana:latest
+    volumes:
+      - ./monitoring/grafana/data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      TZ: "Europe/Moscow"
+      GF_SECURITY_ADMIN_USER: '${GF_SECURITY_ADMIN_USER}'
+      GF_SECURITY_ADMIN_PASSWORD: '${GF_SECURITY_ADMIN_PASSWORD}'
+      GF_INSTALL_PLUGINS: 'grafana-clock-panel,grafana-simple-json-datasource,vonage-status-panel'
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus-b
+    user: "104:107"
+
+networks:
+  default:
+    external: true
+    name: external-example
