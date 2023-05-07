@@ -11,6 +11,10 @@ create-env:
 	go mod download
 
 run-linter:
+	$(GOPATH)/bin/golangci-lint run $(PKG_LINTERS) --config=$(LINTER_CFG)
+	go fmt $(PKG)
+
+run-linter-local:
 	docker run --rm -v $(shell pwd):/app -v ~/.cache/golangci-lint/:/root/.cache -w /app golangci/golangci-lint:latest golangci-lint run $(PKG) --config=$(LINTER_CFG) -v
 	go fmt $(PKG)
 
