@@ -62,3 +62,11 @@ run-monitoring:
 
 stop-monitoring:
 	docker-compose kill prometheus-b grafana-b
+
+
+TARGET_HOST=localhost
+TARGET_PORT=8080
+
+# Bench
+bench:
+	wrk -t12 -c400 -d30s 'http://$(TARGET_HOST):$(TARGET_PORT)/echo?body=Hello'
