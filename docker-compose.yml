@@ -36,6 +36,12 @@ services:
       - prometheus-b
     user: "104:107"
 
+  nginx:
+    container_name: "nginx"
+    build:
+      dockerfile: ./infra/nginx.Dockerfile
+    network_mode: host
+
 networks:
   default:
     external: true
