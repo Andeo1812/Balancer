@@ -14,7 +14,7 @@ func NewServer() *Server {
 
 func (s *Server) Launch(config *ServerCfg, router http.Handler) error {
 	ser := http.Server{
-		Addr:         config.BindAddr,
+		Addr:         config.BindAddrHTTP,
 		Handler:      router,
 		ReadTimeout:  time.Duration(config.ReadTimeout) * time.Second,
 		WriteTimeout: time.Duration(config.WriteTimeout) * time.Second,

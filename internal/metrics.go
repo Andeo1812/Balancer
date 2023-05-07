@@ -53,7 +53,7 @@ func CreateNewMonitoringServer(addr string) {
 
 	router.Handle("/metrics", promhttp.Handler())
 
-	logrus.Info("metricsI starting Server at " + addr)
+	logrus.Info("metrics starting Server at " + addr)
 
 	err := http.ListenAndServe(addr, router)
 	if err != nil {

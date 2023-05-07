@@ -1,7 +1,7 @@
 package main
 
 import (
-	"flag"
+	"os"
 
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
@@ -13,9 +13,6 @@ import (
 const (
 	// global env TODO
 	// wardenOrigin = "some ip"
-
-	// metrics
-	bindAddrHTTPMetrics = ":9001"
 
 	maxTimeoutWork = 3
 )
@@ -30,27 +27,43 @@ var corsCfg = &internal.CorsCfg{
 
 var serverCfg = &internal.ServerCfg{
 	ServiceName:  "app",
-	BindAddr:     ":8088",
 	ReadTimeout:  maxTimeoutWork,
 	WriteTimeout: maxTimeoutWork,
 	Protocol:     "http",
 }
 
+var metricsCfg = &internal.MetricsCfg{}
+
 func main() {
-	// App start params
-	var podUUID string
-	flag.StringVar(&podUUID, "pod-uuid", "1", "identification serverCfg")
-	flag.Parse()
+	// Get env var
+	podUUID, exists := os.LookupEnv("POD_UUID")
+	if !exists {
+		logrus.Fatal("Can't get POD_UUID ENV")
+	}
+
+	bindAddrHTTP, exists := os.LookupEnv("PORT_APP")
+	if !exists {
+		logrus.Fatal("Can't get PORT_APP ENV")
+	}
+	serverCfg.BindAddrHTTP = bindAddrHTTP
+
+	bindAddrMetrics, exists := os.LookupEnv("PORT_METRICS_APP")
+	if !exists {
+		logrus.Fatal("Can't get PORT_METRICS_APP ENV")
+	}
+	metricsCfg.BindAddr = bindAddrMetrics
+
+	metricsCfg.SourceName = serverCfg.ServiceName + "_" + podUUID + "_" + serverCfg.BindAddrHTTP
 
 	// Metrics
-	metrics := internal.NewPrometheusMetrics(serverCfg.ServiceName + "_" + podUUID)
+	metrics := internal.NewPrometheusMetrics(metricsCfg.SourceName)
 	err := metrics.SetupMonitoring()
 	if err != nil {
 		logrus.Fatal(err)
 	}
 
 	// Metrics serverCfg
-	go internal.CreateNewMonitoringServer(bindAddrHTTPMetrics)
+	go internal.CreateNewMonitoringServer(metricsCfg.BindAddr)
 
 	// Middleware
 	mw := internal.NewMiddleware(corsCfg, metrics)
@@ -71,7 +84,7 @@ func main() {
 
 	logrus.Infof("%s starting server at %s on protocol %s with pod uuid %s",
 		serverCfg.ServiceName,
-		serverCfg.BindAddr,
+		serverCfg.BindAddrHTTP,
 		serverCfg.Protocol,
 		podUUID)
 

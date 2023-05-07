@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/sirupsen/logrus"
 )
 
 type EchoHandler struct{}
@@ -25,6 +26,8 @@ func (h *EchoHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		DefaultHandlerHTTPError(r.Context(), w, err)
 		return
 	}
+
+	logrus.Info(r.RemoteAddr + " send " + response.Body)
 
 	Response(r.Context(), w, http.StatusOK, response)
 }

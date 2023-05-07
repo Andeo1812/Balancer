@@ -1,19 +1,24 @@
 package internal
 
 type CorsCfg struct {
-	Methods     []string `toml:"methods"`
-	Origins     []string `toml:"urls"`
-	Headers     []string `toml:"headers"`
-	Credentials bool     `toml:"credentials"`
-	Debug       bool     `toml:"api"`
+	Methods     []string
+	Origins     []string
+	Headers     []string
+	Credentials bool
+	Debug       bool
 }
 
 type ServerCfg struct {
-	ServiceName        string `toml:"service_name"`
-	BindAddr           string `toml:"bind_addr_http"`
-	ReadTimeout        int    `toml:"read_timeout"`
-	WriteTimeout       int    `toml:"write_timeout"`
-	Protocol           string `toml:"protocol"`
-	FileTLSCertificate string `toml:"tls_certificate_file"`
-	FileTLSKey         string `toml:"tls_key_file"`
+	ServiceName        string
+	BindAddrHTTP       string
+	ReadTimeout        int
+	WriteTimeout       int
+	Protocol           string
+	FileTLSCertificate string
+	FileTLSKey         string
+}
+
+type MetricsCfg struct {
+	BindAddr   string
+	SourceName string
 }
