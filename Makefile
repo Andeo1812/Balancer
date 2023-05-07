@@ -70,3 +70,10 @@ TARGET_PORT=8080
 # Bench
 bench:
 	wrk -t12 -c400 -d30s 'http://$(TARGET_HOST):$(TARGET_PORT)/echo?body=Hello'
+
+# NGINX
+run-nginx:
+	docker-compose up -d nginx
+
+logs-nginx:
+	docker-compose logs nginx
