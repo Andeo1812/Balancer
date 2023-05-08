@@ -42,18 +42,3 @@ func bindEcho(r *http.Request) (EchoResponse, error) {
 
 	return res, nil
 }
-
-type HealthHandler struct{}
-
-// NewHealthHandler is constructor for EchoHandler Ping API.
-func NewHealthHandler() *HealthHandler {
-	return &HealthHandler{}
-}
-
-func (h *HealthHandler) Configure(r *mux.Router) {
-	r.HandleFunc("/health", h.ServeHTTP)
-}
-
-func (h *HealthHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	NoBody(w, http.StatusOK)
-}
