@@ -11,9 +11,6 @@ import (
 
 // configs
 const (
-	// global env TODO
-	// wardenOrigin = "some ip"
-
 	maxTimeoutWork = 3
 )
 
