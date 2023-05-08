@@ -37,10 +37,12 @@ services:
     user: "104:107"
 
   nginx:
-    container_name: "nginx"
-    build:
-      dockerfile: ./infra/nginx.Dockerfile
-    network_mode: host
+    container_name: nginx
+    image: nginx
+    volumes:
+      - ./config-dev/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
 
 networks:
   default:
