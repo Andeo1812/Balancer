@@ -42,6 +42,7 @@ PORT_APP=8080
 PORT_METRICS_APP=9000
 SIZE_CLUSTER=10
 
+# Example make run-cluster-app POD=2
 run-cluster-app:
 	./scripts/run_cluster_app.sh ${SERVICE_NAME} ${POD} ${PORT_APP} ${PORT_METRICS_APP} ${SIZE_CLUSTER}
 
@@ -65,8 +66,8 @@ stop-monitoring:
 	docker-compose down prometheus-b grafana-b
 
 
-TARGET_HOST=localhost
-TARGET_PORT=8080
+TARGET_HOST=212.233.91.185
+TARGET_PORT=8089
 
 # Bench
 bench:
