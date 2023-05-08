@@ -4,7 +4,8 @@ services:
   app:
     container_name: "app"
     build:
-      dockerfile: ./infra/builder.Dockerfile
+      context: ./infra
+      dockerfile: builder.Dockerfile
     command: sh -c "./main.bin"
 
   prometheus-b:
