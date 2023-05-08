@@ -66,7 +66,7 @@ stop-monitoring:
 
 
 TARGET_HOST=212.233.91.185
-TARGET_PORT=8088
+TARGET_PORT=8800
 
 # Bench
 bench:
