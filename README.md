@@ -37,7 +37,6 @@ make run-monitoring
 ```
 
 ### Запуск nginx:
-Важно предварительно установить переменную окружения POD_UUID
 
 ```bash
 make run-nginx
