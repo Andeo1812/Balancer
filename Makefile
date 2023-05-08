@@ -63,7 +63,6 @@ run-monitoring:
 
 stop-monitoring:
 	docker-compose kill prometheus-b grafana-b
-	docker-compose down prometheus-b grafana-b
 
 
 TARGET_HOST=212.233.91.185
