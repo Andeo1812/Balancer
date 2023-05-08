@@ -4,8 +4,8 @@ services:
   app:
     container_name: "app"
     build:
-      context: ./infra
-      dockerfile: builder.Dockerfile
+      context: .
+      dockerfile: ./infra/builder.Dockerfile
     networks:
       - nginx-net
     command: sh -c "./main.bin"
