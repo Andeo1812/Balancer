@@ -65,12 +65,12 @@ stop-monitoring:
 	docker-compose kill prometheus-b grafana-b
 
 
-TARGET_HOST=146.185.210.159
-TARGET_PORT=8089
+TARGET_HOST=212.233.91.185
+TARGET_PORT=8088
 
 # Bench
 bench:
-	wrk -t12 -c400 -d30s 'http://$(TARGET_HOST):$(TARGET_PORT)/echo?body=Hello'
+	wrk -t16 -c800 -d600s 'http://$(TARGET_HOST):$(TARGET_PORT)/echo?body=Hello'
 
 # NGINX
 run-nginx:
@@ -81,4 +81,3 @@ logs-nginx:
 
 stop-nginx:
 	docker-compose kill nginx
-	docker-compose down nginx
