@@ -6,6 +6,8 @@ services:
     build:
       context: ./infra
       dockerfile: builder.Dockerfile
+    networks:
+      - nginx-net
     command: sh -c "./main.bin"
 
   prometheus-b:
@@ -13,6 +15,8 @@ services:
     image: prom/prometheus:latest
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - nginx-net
     environment:
       TZ: "Europe/Moscow"
     volumes:
@@ -26,6 +30,8 @@ services:
     volumes:
       - ./monitoring/grafana/data:/var/lib/grafana
       - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+    networks:
+      - nginx-net
     environment:
       TZ: "Europe/Moscow"
       GF_SECURITY_ADMIN_USER: '${GF_SECURITY_ADMIN_USER}'
@@ -46,6 +52,5 @@ services:
       - "80:80"
 
 networks:
-  default:
-    external: true
-    name: external-example
+  nginx-net:
+    driver: bridge
