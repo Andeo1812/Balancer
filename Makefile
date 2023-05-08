@@ -70,7 +70,7 @@ TARGET_PORT=8800
 
 # Bench
 bench:
-	wrk -t16 -c800 -d600s 'http://$(TARGET_HOST):$(TARGET_PORT)/echo?body=Hello'
+	wrk -t4 -c100 -d600s 'http://$(TARGET_HOST):$(TARGET_PORT)/echo?body=Hello'
 
 # NGINX
 run-nginx:
