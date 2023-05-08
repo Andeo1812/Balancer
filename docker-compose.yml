@@ -47,7 +47,7 @@ services:
     container_name: nginx
     image: nginx
     volumes:
-      - ./config-dev/nginx.conf:/etc/nginx/nginx.conf
+      - ./config-dev/balancer.conf:/etc/nginx/balancer.conf
     ports:
       - "80:80"
 
