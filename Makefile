@@ -65,7 +65,7 @@ stop-monitoring:
 	docker-compose kill prometheus-b grafana-b
 
 
-TARGET_HOST=212.233.91.185
+TARGET_HOST=146.185.210.159
 TARGET_PORT=8089
 
 # Bench
