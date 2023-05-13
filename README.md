@@ -8,7 +8,7 @@
 * Сервис-монолит на Go
 * Метрики собираются Prometheus
 * Мониторинг на Grafana
-* [Фреймворк]((https://github.com/wg/wrk)) нагрузочного тестирования
+* [Фреймворк](https://github.com/wg/wrk) нагрузочного тестирования
 * Docker, docker-compose
 
 ## Сценарий

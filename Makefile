@@ -58,6 +58,7 @@ stop:
 	docker-compose down
 
 # INFRA MONITORING
+# BEFORE LAUNCH NEEDED: $ export GF_SECURITY_ADMIN_USER=mguser && export GF_SECURITY_ADMIN_PASSWORD=mgpass
 run-monitoring:
 	docker-compose up -d --remove-orphans prometheus-b grafana-b
 
@@ -67,7 +68,6 @@ stop-monitoring:
 
 TARGET_HOST=212.233.91.185
 TARGET_PORT=8800
-
 # Bench
 bench:
 	wrk -t4 -c100 -d600s 'http://$(TARGET_HOST):$(TARGET_PORT)/echo?body=Hello'
