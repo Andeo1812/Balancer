@@ -40,7 +40,7 @@ SERVICE_NAME=app
 POD=1
 PORT_APP=8080
 PORT_METRICS_APP=9000
-SIZE_CLUSTER=10
+SIZE_CLUSTER=10 # (REAL 10 + 1 = 11)
 
 # Example make run-cluster-app POD=2
 run-cluster-app:
