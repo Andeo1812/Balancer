@@ -64,3 +64,9 @@ make stop
 * Запуск всех подов с нагрузкой 
 * Отключение 3 пода
 * Включение 3 пода 
+
+## INFO
+### VMs:
+1. 212.233.91.185 -  master (cluster, grafana 3000, prometheus 9090) - http://212.233.91.185:8080/echo?body=someasdads
+2. 146.185.209.20 -  slave (cluster)                       - http://146.185.209.20:8090/echo?body=someasdads
+3. 146.185.210.159 - slave (cluster)                       - http://146.185.210.159:8090/echo?body=someasdads
